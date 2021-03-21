@@ -12,6 +12,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const FormWrapper = styled(Form)`
+  margin-top: 35px;
   padding: 10px;
 `;
 
@@ -38,8 +39,7 @@ const LoginForm = () => {
         <br />
         <Input name="user-email" type="email" value={email} onChange={onChangeEmail} placeholder="E-mail" required />
       </div>
-      <div>
-        <br />
+      <ButtonWrapper>
         <Input
           name="user-password"
           type="password"
@@ -48,10 +48,12 @@ const LoginForm = () => {
           placeholder="Password"
           required
         />
-      </div>
+      </ButtonWrapper>
       <ButtonWrapper>
-        <Button type="primary" htmlType="submit" loading={logInLoading}>로그인</Button>
-        <Link href="/signup"><a><Button>회원가입</Button></a></Link>
+        <Link href="/signup"><a><Button shape="round" type="primary" block>가입하기</Button></a></Link>
+      </ButtonWrapper>
+      <ButtonWrapper>
+        <Button shape="round" htmlType="submit" loading={logInLoading} block>로그인</Button>
       </ButtonWrapper>
     </FormWrapper>
   );

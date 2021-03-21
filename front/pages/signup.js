@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import Link from 'next/link'
 import Head from 'next/head';
 import Router from 'next/router';
 import axios from 'axios';
@@ -10,6 +11,15 @@ import { LOAD_MY_INFO_REQUEST, SIGN_UP_REQUEST } from '../reducers/user';
 import useInput from '../hooks/useInput';
 import AppLayout from '../components/AppLayout';
 import wrapper from '../store/configureStore';
+
+const layout = {
+  labelCol: {
+    span: 5,
+  },
+  wrapperCol: {
+    span: 16,
+  },
+};
 
 const Signup = () => {
   const [passwordCheck, setPasswordCheck] = useState('');
@@ -73,41 +83,45 @@ const Signup = () => {
       <Head>
         <title>회원가입 | NodeBird</title>
       </Head>
-      <Form onFinish={onSubmit} style={{ padding: 10 }}>
-        <div>
-          <label htmlFor="user-email">이메일</label>
-          <br />
+      <Form onFinish={onSubmit} style={{ padding: 10 }} {...layout}>
+        <Form.Item
+        label="E-mail"
+        name="E-mail"
+        >
           <Input name="user-email" value={email} required onChange={onChangeEmail} />
-        </div>
-        <div>
-          <label htmlFor="user-nick">닉네임</label>
-          <br />
+        </Form.Item>
+
+        <Form.Item
+        label="Nickname"
+        name="Nickname"
+        >
           <Input name="user-nick" value={nick} required onChange={onChangeNick} />
-        </div>
-        <div>
-          <label htmlFor="user-password">비밀번호</label>
-          <br />
-          <Input name="user-password" type="password" value={password} required onChange={onChangePassword} />
-        </div>
-        <div>
-          <label htmlFor="user-password-check">비밀번호체크</label>
-          <br />
-          <Input
-            name="user-password-check"
-            type="password"
-            value={passwordCheck}
-            required
-            onChange={onChangePasswordCheck}
-          />
+        </Form.Item>
+
+        <Form.Item
+        label="password"
+        name="password"
+        >
+          <Input name="user-password" value={password} required onChange={onChangePassword} />
+        </Form.Item>
+        
+        <Form.Item
+        label="password-check"
+        name="password-check"
+        >
+          <Input name="user-check" value={passwordCheck} required onChange={onChangePasswordCheck} />
           {passwordError && <div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>}
-        </div>
-        <div>
-          <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>제로초 말을 잘 들을 것을 동의합니다.</Checkbox>
-          {termError && <div style={{ color: 'red' }}>약관에 동의하셔야 합니다.</div>}
-        </div>
-        <div style={{ marginTop: 10 }}>
-          <Button type="primary" htmlType="submit" loading={signUpLoading}>가입하기</Button>
-        </div>
+          <div>비밀번호는 랜덤 솔트 sha512 방식으로 암호화되어 운영자도 알 수 없습니다. </div>
+          <br/>
+          <div>
+            <Checkbox name="user-term" checked={term} onChange={onChangeTerm}><Link href="/terms.html"><a>약관</a></Link>에 동의합니다.</Checkbox>
+            {termError && <div style={{ color: 'red' }}>약관에 동의하셔야 합니다.</div>}
+          </div>
+          <div style={{ marginTop: 10, }}>
+            <Button type="primary" htmlType="submit" loading={signUpLoading}>가입하기</Button>
+          </div>
+        </Form.Item>
+        
       </Form>
     </AppLayout>
   );

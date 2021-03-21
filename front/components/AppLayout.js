@@ -5,17 +5,12 @@ import { Menu, Input, Row, Col, Affix } from 'antd';
 import {
   HomeOutlined,TwitterOutlined,UserOutlined
 } from '@ant-design/icons';
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import Router from 'next/router';
 
 import UserProfile from './UserProfile';
 import LoginForm from './LoginForm';
 import useInput from '../hooks/useInput';
-
-const SearchInput = styled(Input.Search)`
-  vertical-align: middle;
-`;
 
 const AppLayout = ({ children }) => {
   const { me } = useSelector((state) => state.user);
@@ -41,7 +36,6 @@ const AppLayout = ({ children }) => {
                 <Link href="/profile"><a><h3><strong><UserOutlined style={{ fontSize: '20px' }}/>프로필</strong></h3></a></Link>
               </Menu.Item>
             </Menu>
-          {me ? <UserProfile /> : <LoginForm />}
           </Affix>
         </Col>
 
@@ -63,13 +57,16 @@ const AppLayout = ({ children }) => {
           <Affix>
             <Menu>
               <Menu.Item>
-                <SearchInput
+                <Input.Search
                   value={searchInput}
                   onChange={onChangeSearchInput}
                   onSearch={onSearch}
                   placeholder="DCU 검색"
                 />
               </Menu.Item>
+            </Menu>
+            <Menu style={{ minHeight: "100vh"}}>
+              {me ? <UserProfile /> : <LoginForm />}
             </Menu>
           </Affix>
         </Col>
