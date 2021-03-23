@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import Router from 'next/router';
 import { END } from 'redux-saga';
+import { Card, Avatar, Row, Col } from 'antd';
+import Link from 'next/link';
 import axios from 'axios';
 import useSWR from 'swr';
 
@@ -49,9 +51,51 @@ const Profile = () => {
         <title>내 프로필 | NodeBird</title>
       </Head>
       <AppLayout>
+        <Card
+          actions={[
+            <div key="twit">
+              <Link href={`/user/${me.id}`}>
+                <a>
+                  게시글
+                  <br />
+                  {me.Posts.length}
+                </a>
+              </Link>
+            </div>,
+            <div key="followings">
+              <Link href="/profile">
+                <a>
+                  팔로잉
+                  <br />
+                  {me.Followings.length}
+                </a>
+              </Link>
+            </div>,
+            <div key="followings">
+              <Link href="/profile">
+                <a>
+                  팔로워
+                  <br />
+                  {me.Followers.length}
+                </a>
+              </Link>
+            </div>,
+          ]}
+        >
+          <Card.Meta
+            avatar={<Avatar>{me.nickname[0]}</Avatar>}
+            title={me.nickname}
+          />
+        </Card>
         <NicknameEditForm />
-        <FollowList header="팔로잉" data={followingsData} onClickMore={loadMoreFollowings} loading={!followingError && !followingsData} />
-        <FollowList header="팔로워" data={followersData} onClickMore={loadMoreFollowers} loading={!followerError && !followersData} />
+        <Row>
+          <Col md={12}>
+            <FollowList header="팔로잉" data={followingsData} onClickMore={loadMoreFollowings} loading={!followingError && !followingsData} />
+          </Col>
+          <Col md={12}>
+            <FollowList header="팔로워" data={followersData} onClickMore={loadMoreFollowers} loading={!followerError && !followersData} />
+          </Col>
+        </Row>
       </AppLayout>
     </>
   );

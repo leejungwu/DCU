@@ -25,16 +25,17 @@ const AppLayout = ({ children }) => {
       <Row justify="center">
         <Col xs={3} sm={3} md={4} lg={3}>
           <Affix>
-            <Menu>
+            <Menu style={{ minHeight: "100vh"}}>
               <Menu.Item style={{ marginTop: "15px"}}>
                 <Link href="/"><a><TwitterOutlined style={{ fontSize: '28px', color: 'skyblue'}}/></a></Link>
               </Menu.Item>
               <Menu.Item>
-                <Link href="/"><a><h3><strong><HomeOutlined style={{ fontSize: '20px', color: 'skyblue'}}/>홈</strong></h3></a></Link>
+                <Link href="/"><a><h3><strong><HomeOutlined style={{ fontSize: '20px' }}/>홈</strong></h3></a></Link>
               </Menu.Item>
               <Menu.Item>
                 <Link href="/profile"><a><h3><strong><UserOutlined style={{ fontSize: '20px' }}/>프로필</strong></h3></a></Link>
               </Menu.Item>
+              {me && <UserProfile />}
             </Menu>
           </Affix>
         </Col>
@@ -45,9 +46,9 @@ const AppLayout = ({ children }) => {
         >
           <Affix>
             <Menu style={{ borderBottom: '0.1px solid lightgray' }}>
-                <Menu.Item>
-                  <Link href="/"><a><h3><strong>홈</strong></h3></a></Link>
-                </Menu.Item>
+              <Menu.Item>
+                <Link href="/"><a><h3><strong>홈</strong></h3></a></Link>
+              </Menu.Item>
             </Menu>
           </Affix>
           {children}
@@ -65,9 +66,11 @@ const AppLayout = ({ children }) => {
                 />
               </Menu.Item>
             </Menu>
-            <Menu style={{ minHeight: "100vh"}}>
-              {me ? <UserProfile /> : <LoginForm />}
-            </Menu>
+              {!me&&(
+              <Menu style={{ minHeight: "100vh"}}>
+                <LoginForm />
+              </Menu>
+              )}
           </Affix>
         </Col>
       </Row>

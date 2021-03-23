@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Card, Avatar, Form, Input } from 'antd';
+import { FileImageOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ADD_POST_REQUEST, UPLOAD_IMAGES_REQUEST, REMOVE_IMAGE } from '../reducers/post';
@@ -7,6 +8,7 @@ import useInput from '../hooks/useInput';
 
 const PostForm = () => {
   const { imagePaths, addPostDone } = useSelector((state) => state.post);
+  const { me } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [text, onChangeText, setText] = useInput('');
 
@@ -56,29 +58,36 @@ const PostForm = () => {
   });
 
   return (
-    <Form style={{ margin: '10px 0 20px' }} encType="multipart/form-data" onFinish={onSubmit}>
-      <Input.TextArea
-        value={text}
-        onChange={onChangeText}
-        maxLength={140}
-        placeholder="어떤 신기한 일이 있었나요?"
-      />
-      <div>
-        <input type="file" name="image" multiple hidden ref={imageInput} onChange={onChangeImages} />
-        <Button onClick={onClickImageUpload}>이미지 업로드</Button>
-        <Button type="primary" style={{ float: 'right' }} htmlType="submit">짹짹</Button>
-      </div>
-      <div>
-        {imagePaths.map((v, i) => (
-          <div key={v} style={{ display: 'inline-block' }}>
-            <img src={`http://localhost:3065/${v}`} style={{ width: '200px' }} alt={v} />
-            <div>
-              <Button onClick={onRemoveImage(i)}>제거</Button>
+    <Card>
+      <Form encType="multipart/form-data" onFinish={onSubmit}>
+        <div style={{ display: 'flex'}}>
+          <Card.Meta style={{ marginTop: '5px' }}
+            avatar={<Avatar>{me.nickname[0]}</Avatar>}
+          />
+          <Input.TextArea
+            value={text}
+            onChange={onChangeText}
+            maxLength={140}
+            placeholder="무슨 일이 일어나고 있나요?"
+          />
+        </div>
+        <div style={{ marginTop: '5px'}}>
+          <input type="file" name="image" multiple hidden ref={imageInput} onChange={onChangeImages} />
+          <FileImageOutlined onClick={onClickImageUpload} style={{ marginLeft: '48px', fontSize: '20px' }} />
+          <Button type="primary" style={{ float: 'right' }} shape="round" htmlType="submit">공유</Button>
+        </div>
+        <div>
+          {imagePaths.map((v, i) => (
+            <div key={v} style={{ display: 'inline-block' }}>
+              <img src={`http://localhost:3065/${v}`} style={{ width: '200px' }} alt={v} />
+              <div>
+                <Button onClick={onRemoveImage(i)}>제거</Button>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </Form>
+          ))}
+        </div>
+      </Form>
+    </Card>
   );
 };
 

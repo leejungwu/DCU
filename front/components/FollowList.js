@@ -24,22 +24,24 @@ const FollowList = ({ header, data, onClickMore, loading }) => {
   return (
     <List
       style={{ marginBottom: 20 }}
-      grid={{ gutter: 4, xs: 2, md: 3 }}
       size="small"
       header={<div>{header}</div>}
       loadMore={<div style={{ textAlign: 'center', margin: '10px 0' }}><Button onClick={onClickMore} loading={loading}>더 보기</Button></div>}
       bordered
       dataSource={data}
       renderItem={(item) => (
-        <List.Item style={{ marginTop: 20 }}>
-          <Card actions={[<StopOutlined key="stop" onClick={onCancel(item.id)} />]}>
-            <Card.Meta description={item.nickname} />
-          </Card>
+        <List.Item 
+          actions={[<StopOutlined key="stop" onClick={onCancel(item.id)} />]}
+        >
+          <List.Item.Meta
+            title={item.nickname}
+          />
         </List.Item>
       )}
     />
   );
 };
+
 
 FollowList.propTypes = {
   header: PropTypes.string.isRequired,
