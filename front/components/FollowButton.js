@@ -26,8 +26,8 @@ const FollowButton = ({ post }) => {
     return null;
   }
   return (
-    <Button loading={followLoading || unfollowLoading} onClick={onClickButton}>
-      {isFollowing ? '언팔로우' : '팔로우'}
+    <Button loading={followLoading || unfollowLoading} onClick={onClickButton} shape="round">
+      {isFollowing ? '언팔로우' : '팔로잉'}
     </Button>
   );
 };

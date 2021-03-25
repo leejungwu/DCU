@@ -81,33 +81,33 @@ const Signup = () => {
   return (
     <AppLayout>
       <Head>
-        <title>회원가입 | NodeBird</title>
+        <title>회원가입</title>
       </Head>
       <Form onFinish={onSubmit} style={{ padding: 10 }} {...layout}>
         <Form.Item
-        label="E-mail"
-        name="E-mail"
+          label="E-mail"
+          name="E-mail"
         >
           <Input name="user-email" value={email} required onChange={onChangeEmail} />
         </Form.Item>
 
         <Form.Item
-        label="Nickname"
-        name="Nickname"
+          label="Nickname"
+          name="Nickname"
         >
           <Input name="user-nick" value={nick} required onChange={onChangeNick} />
         </Form.Item>
 
         <Form.Item
-        label="password"
-        name="password"
+          label="password"
+          name="password"
         >
           <Input name="user-password" value={password} required onChange={onChangePassword} />
         </Form.Item>
         
         <Form.Item
-        label="password-check"
-        name="password-check"
+          label="password-check"
+          name="password-check"
         >
           <Input name="user-check" value={passwordCheck} required onChange={onChangePasswordCheck} />
           {passwordError && <div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>}

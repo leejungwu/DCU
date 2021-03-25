@@ -42,7 +42,7 @@ const AppLayout = ({ children }) => {
 
         <Col 
           xs={21} sm={15} md={11} lg={11} 
-          style={{ borderLeft: '0.1px solid lightgray', borderRight: '0.1px solid lightgray' }}
+          style={{ borderLeft: '0.1px solid lightgray', borderRight: '0.1px solid lightgray', zIndex:10}}
         >
           <Affix>
             <Menu style={{ borderBottom: '0.1px solid lightgray' }}>

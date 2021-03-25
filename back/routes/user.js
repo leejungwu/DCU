@@ -189,7 +189,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
           attributes: ['id'],
         }]
       })
-      return res.status(200).json(fullUserWithoutPassword);
+      return res.status(200).json(fullUserWithoutPassword); // data+쿠키 -> front
     });
   })(req, res, next);
 });

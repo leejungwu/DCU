@@ -35,10 +35,9 @@ const LoginForm = () => {
 
   return (
     <FormWrapper onFinish={onSubmitForm}>
-      <div>
-        <br />
+      <ButtonWrapper>
         <Input name="user-email" type="email" value={email} onChange={onChangeEmail} placeholder="E-mail" required />
-      </div>
+      </ButtonWrapper>
       <ButtonWrapper>
         <Input
           name="user-password"

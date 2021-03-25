@@ -70,11 +70,22 @@ const PostCard = ({ post }) => {
       <Card
         cover={post.Images[0] && <PostImages images={post.Images} />}
         actions={[
-          <MessageOutlined key="comment" onClick={onToggleComment} />,
-          <RetweetOutlined key="retweet" onClick={onRetweet} />,
+          <div>
+            <MessageOutlined key="comment" onClick={onToggleComment} style={{ paddingRight:"5px" }}/>
+            {post.Comments.length > 0 ? post.Comments.length : null}
+          </div>,
+          <div>
+            <RetweetOutlined key="retweet" onClick={onRetweet} />
+          </div>,
           liked
-            ? <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onUnlike} />
-            : <HeartOutlined key="heart" onClick={onLike} />,
+            ? <div>
+                <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onUnlike} style={{ paddingRight:"5px" }}/>
+                {post.Likers.length > 0 ? post.Likers.length : null}
+              </div>
+            : <div>
+                <HeartOutlined key="heart" onClick={onLike} style={{ paddingRight:"5px" }}/>
+                {post.Likers.length > 0 ? post.Likers.length : null}
+              </div>,
           <Popover
             key="more"
             content={(
@@ -93,7 +104,7 @@ const PostCard = ({ post }) => {
             <EllipsisOutlined />
           </Popover>,
         ]}
-        title={post.RetweetId ? `${post.User.nickname}님이 리트윗하셨습니다.` : null}
+        title={post.RetweetId ? `${post.User.nickname} 님이 리트윗함` : null}
         extra={id && <FollowButton post={post} />}
       >
         {post.RetweetId && post.Retweet
@@ -124,7 +135,8 @@ const PostCard = ({ post }) => {
         <div>
           <CommentForm post={post} />
           <List
-            header={`${post.Comments.length}개의 댓글`}
+            header={`댓글`}
+            style={{ marginLeft:"5px" }}
             itemLayout="horizontal"
             dataSource={post.Comments}
             renderItem={(item) => (

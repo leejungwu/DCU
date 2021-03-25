@@ -48,7 +48,7 @@ const Profile = () => {
   return (
     <>
       <Head>
-        <title>내 프로필 | NodeBird</title>
+        <title>프로필</title>
       </Head>
       <AppLayout>
         <Card

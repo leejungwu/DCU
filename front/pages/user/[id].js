@@ -56,7 +56,7 @@ const User = () => {
           <Card
             actions={[
               <div key="twit">
-                공유
+                게시글
                 <br />
                 {userInfo.Posts}
               </div>,

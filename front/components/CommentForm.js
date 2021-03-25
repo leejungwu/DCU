@@ -30,11 +30,12 @@ const CommentForm = ({ post }) => {
       <Form.Item style={{ position: 'relative', margin: 0 }}>
         <Input.TextArea value={commentText} onChange={onChangeCommentText} rows={4} />
         <Button
-          style={{ position: 'absolute', right: 0, bottom: -40, zIndex: 1 }}
+          style={{ position: 'absolute', right: 0, bottom: -40, zIndex: 1, marginRight:'5px'}}
           type="primary"
           htmlType="submit"
+          shape="round"
           loading={addCommentLoading}
-        >삐약
+        >답글
         </Button>
       </Form.Item>
     </Form>

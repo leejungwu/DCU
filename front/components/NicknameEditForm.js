@@ -22,7 +22,7 @@ const NicknameEditForm = () => {
       <Input.Search
         value={nickname}
         onChange={onChangeNickname}
-        addonBefore="닉네임"
+        addonBefore="별명"
         enterButton="수정"
         onSearch={onSubmit}
       />
