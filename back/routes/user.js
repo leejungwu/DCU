@@ -241,7 +241,7 @@ router.patch('/:userId/follow', isLoggedIn, async (req, res, next) => { // PATCH
   try {
     const user = await User.findOne({ where: { id: req.params.userId }});
     if (!user) {
-      res.status(403).send('없는 사람을 팔로우하려고 하시네요?');
+      res.status(403).send('없는 계정입니다.');
     }
     await user.addFollowers(req.user.id);
     res.status(200).json({ UserId: parseInt(req.params.userId, 10) });
@@ -255,7 +255,7 @@ router.delete('/:userId/follow', isLoggedIn, async (req, res, next) => { // DELE
   try {
     const user = await User.findOne({ where: { id: req.params.userId }});
     if (!user) {
-      res.status(403).send('없는 사람을 언팔로우하려고 하시네요?');
+      res.status(403).send('없는 계정입니다.');
     }
     await user.removeFollowers(req.user.id);
     res.status(200).json({ UserId: parseInt(req.params.userId, 10) });
@@ -269,7 +269,7 @@ router.delete('/follower/:userId', isLoggedIn, async (req, res, next) => { // DE
   try {
     const user = await User.findOne({ where: { id: req.params.userId }});
     if (!user) {
-      res.status(403).send('없는 사람을 차단하려고 하시네요?');
+      res.status(403).send('없는 계정입니다.');
     }
     await user.removeFollowings(req.user.id);
     res.status(200).json({ UserId: parseInt(req.params.userId, 10) });
