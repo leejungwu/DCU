@@ -3,18 +3,27 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Card, Popover, Button, Avatar, List, Comment } from 'antd';
 import {
-  RetweetOutlined, HeartOutlined, MessageOutlined, EllipsisOutlined, HeartTwoTone,
+  RetweetOutlined, HeartOutlined, MessageOutlined, EllipsisOutlined, HeartTwoTone, DeleteOutlined
 } from '@ant-design/icons';
 import Link from 'next/link';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko'
+var relativeTime = require('dayjs/plugin/relativeTime')
 
+import styled from 'styled-components';
 import PostImages from './PostImages';
 import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
 import { LIKE_POST_REQUEST, REMOVE_POST_REQUEST, REMOVE_COMMENT_REQUEST, UNLIKE_POST_REQUEST, RETWEET_REQUEST } from '../reducers/post';
 import FollowButton from './FollowButton';
 
-moment.locale('ko');
+dayjs.locale('ko');
+dayjs.extend(relativeTime);
+
+const TimeStamp = styled.span`
+  float: right;
+  margin-left: 20px;
+`;
 
 const PostCard = ({ post }) => {
   const dispatch = useDispatch();
@@ -127,7 +136,7 @@ const PostCard = ({ post }) => {
             <Card
               cover={post.Retweet.Images[0] && <PostImages images={post.Retweet.Images} />}
             >
-              <span style={{ float: 'right' }}>{moment(post.createdAt).endOf('day').fromNow()}</span>
+              <TimeStamp>{dayjs(post.createdAt).locale('ko').fromNow()}</TimeStamp>
               <Card.Meta
                 avatar={<Link href={`/user/${post.Retweet.User.id}`}><a><Avatar>{post.Retweet.User.nickname[0]}</Avatar></a></Link>}
                 title={post.Retweet.User.nickname}
@@ -137,7 +146,7 @@ const PostCard = ({ post }) => {
           )
           : (
             <>
-              <span style={{ float: 'right' }}>{moment(post.createdAt).endOf('day').fromNow()}</span>
+              <TimeStamp>{dayjs(post.createdAt).locale('ko').fromNow()}</TimeStamp>
               <Card.Meta
                 avatar={<Link href={`/user/${post.User.id}`}><a><Avatar>{post.User.nickname[0]}</Avatar></a></Link>}
                 title={post.User.nickname}
@@ -159,15 +168,20 @@ const PostCard = ({ post }) => {
                 <Comment
                   author={item.User.nickname}
                   avatar={<Link href={`/user/${item.User.id}`}><a><Avatar>{item.User.nickname[0]}</Avatar></a></Link>}
-                  content={item.content}
+                  content={(
+                    <p>
+                      {item.content}
+                      <TimeStamp>{dayjs(item.createdAt).locale('ko').fromNow()}</TimeStamp>
+                    </p>
+                  )}
                   style={{ display: 'inline-block' }}
                 />
                 {item.User.id === id
                 ? (<Button 
-                    style={{ display: 'inline-block', float:'right', marginTop:'12px', marginRight:'6px' }}
+                    style={{ display: 'inline-block', float:'right', marginTop:'12px', marginRight:'8px' }}
                     shape='round'
                     onClick={onRemoveComment(item.id)}
-                    >삭제</Button>)
+                    ><DeleteOutlined/></Button>)
                 : null}
               </li>
             )}
