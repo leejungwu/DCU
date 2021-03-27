@@ -1,6 +1,9 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, Avatar, Button } from 'antd';
+import { Card, Avatar, Button, Popover } from 'antd';
+import {
+  EllipsisOutlined,
+} from '@ant-design/icons';
 import Link from 'next/link';
 
 import { logoutRequestAction } from '../reducers/user';
@@ -14,12 +17,22 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <Card>
+    <Card
+      actions={[
+        <Popover
+            key="more"
+            content={(
+              <Button loading={logOutLoading} onClick={onLogOut}>로그아웃</Button>
+            )}
+          >
+            <EllipsisOutlined />
+          </Popover>
+      ]}
+    >
       <Card.Meta
         avatar={<Link href={`/user/${me.id}`}><a><Avatar>{me.nickname[0]}</Avatar></a></Link>}
         title={me.nickname}
       />
-      <Button onClick={onLogOut} loading={logOutLoading}>로그아웃</Button>
     </Card>
   );
 };

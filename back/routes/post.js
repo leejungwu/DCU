@@ -245,4 +245,25 @@ router.delete('/:postId', isLoggedIn, async (req, res, next) => { // DELETE /pos
   }
 });
 
+router.delete('/:postId/comment/:commentId', isLoggedIn, async (req, res, next) => { // DELETE /post/comment/2
+  try {
+    const post = await Post.findOne({
+      where: { id: req.params.postId },
+    });
+    if (!post) {
+      return res.status(403).send('존재하지 않는 게시글입니다.');
+    }
+    
+    const comment = await Comment.findOne({ where: { id:req.params.commentId }});
+    if(!comment){
+      res.status(403).json('존재하지 않는 댓글입니다.')
+    }
+    await Comment.destroy({ where: { id: req.params.commentId } });
+    res.status(200).json({ PostId: parseInt(req.params.postId, 10), CommentId: parseInt(req.params.commentId, 10) });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 module.exports = router;

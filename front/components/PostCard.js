@@ -11,7 +11,7 @@ import moment from 'moment';
 import PostImages from './PostImages';
 import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
-import { LIKE_POST_REQUEST, REMOVE_POST_REQUEST, UNLIKE_POST_REQUEST, RETWEET_REQUEST } from '../reducers/post';
+import { LIKE_POST_REQUEST, REMOVE_POST_REQUEST, REMOVE_COMMENT_REQUEST, UNLIKE_POST_REQUEST, RETWEET_REQUEST } from '../reducers/post';
 import FollowButton from './FollowButton';
 
 moment.locale('ko');
@@ -31,6 +31,7 @@ const PostCard = ({ post }) => {
       data: post.id,
     });
   }, [id]);
+
   const onUnlike = useCallback(() => {
     if (!id) {
       return alert('로그인이 필요합니다.');
@@ -53,6 +54,20 @@ const PostCard = ({ post }) => {
       data: post.id,
     });
   }, [id]);
+
+  const onRemoveComment = useCallback((id) => () => {
+    return dispatch({
+      type: REMOVE_COMMENT_REQUEST,
+      data: { postId: post.id, commentId: id},
+    })
+  }, [id]);
+
+  // const onRemoveComment = (id) => () => {
+  //   return dispatch({
+  //     type: REMOVE_COMMENT_REQUEST,
+  //     data: { postId: post.id, commentId: id},
+  //   })
+  // };
 
   const onRetweet = useCallback(() => {
     if (!id) {
@@ -145,7 +160,15 @@ const PostCard = ({ post }) => {
                   author={item.User.nickname}
                   avatar={<Link href={`/user/${item.User.id}`}><a><Avatar>{item.User.nickname[0]}</Avatar></a></Link>}
                   content={item.content}
+                  style={{ display: 'inline-block' }}
                 />
+                {item.User.id === id
+                ? (<Button 
+                    style={{ display: 'inline-block', float:'right', marginTop:'12px', marginRight:'6px' }}
+                    shape='round'
+                    onClick={onRemoveComment(item.id)}
+                    >삭제</Button>)
+                : null}
               </li>
             )}
           />
