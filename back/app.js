@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
 }
     
 app.use(cors({
-  origin: ['http://localhost:3060', 'http://dcutime.shop'],
+  origin: ['http://localhost:3060', 'http://dcutime.shop', 'http://13.124.26.140'],
   credentials: true,
 }));
 app.use('/', express.static(path.join(__dirname, 'uploads')))
