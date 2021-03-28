@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const hpp = require('hpp');
+const helmet = require('helmet');
 
 const path = require('path');
 const postRouter = require('./routes/post');
@@ -23,9 +25,16 @@ db.sequelize.sync()
   .catch(console.error);
 passportConfig();
 
-app.use(morgan('dev'));
+if (processenv.env.NODE_ENV === 'production') {
+  app.use(morgan('combined'));
+  app.use(hpp());
+  app.use(helmet());
+} else {
+  app.use(morgan('dev'));
+}
+
 app.use(cors({
-  origin: 'http://localhost:3060',
+  origin: ['http://localhost:3060', 'dcu.shop'],
   credentials: true,
 }));
 app.use('/', express.static(path.join(__dirname, 'uploads')))
