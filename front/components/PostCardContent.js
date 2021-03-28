@@ -27,7 +27,7 @@ const PostCardContent = ({ postData, editMode, onChangePost, onCancelUpdate }) =
           <Input.TextArea value={editText} onChange={onChangeText}/>
           <Button.Group>
             <Button loading={updatePostLoading} onClick={onChangePost(editText)}>수정</Button>
-            <Button type="danger" onClick={onCancelUpdate}>취소</Button>
+            <Button type="primary" onClick={onCancelUpdate}>취소</Button>
           </Button.Group>
         </>
       )
