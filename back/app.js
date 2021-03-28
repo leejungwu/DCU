@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
 }
     
 app.use(cors({
-  origin: ['http://localhost:3060', 'dcu.shop', 'http://3.36.119.111'],
+  origin: ['http://localhost:3060', 'http://dcutime.shop'],
   credentials: true,
 }));
 app.use('/', express.static(path.join(__dirname, 'uploads')))
@@ -45,6 +45,11 @@ app.use(session({
   saveUninitialized: false,
   resave: false,
   secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+    domain: process.env.NODE_ENV === 'production' && '.dcutime.shop'
+  },
 }));
 app.use(passport.initialize());
 app.use(passport.session());
