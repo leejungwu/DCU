@@ -1,3 +1,5 @@
 node_modules
 .env
 .next
+dcu_sns.pem
+dcu-sns.pem
