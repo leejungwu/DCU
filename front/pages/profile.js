@@ -20,8 +20,8 @@ const fetcher = (url) => axios.get(url, { withCredentials: true }).then((result)
 const Profile = () => {
   const [followingsLimit, setFollowingsLimit] = useState(5);
   const [followersLimit, setFollowersLimit] = useState(5);
-  const { data: followingsData, error: followingError } = useSWR(`http://${backUrl}/user/followings?limit=${followingsLimit}`, fetcher);
-  const { data: followersData, error: followerError } = useSWR(`http://${backUrl}/user/followers?limit=${followersLimit}`, fetcher);
+  const { data: followingsData, error: followingError } = useSWR(`${backUrl}/user/followings?limit=${followingsLimit}`, fetcher);
+  const { data: followersData, error: followerError } = useSWR(`${backUrl}/user/followers?limit=${followersLimit}`, fetcher);
   const { me } = useSelector((state) => state.user);
 
   useEffect(() => {
