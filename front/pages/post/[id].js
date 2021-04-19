@@ -30,7 +30,7 @@ const Post = () => {
         <meta name="description" content={singlePost.content} />
         <meta property="og:title" content={`${singlePost.User.nickname}님의 게시글`} />
         <meta property="og:description" content={singlePost.content} />
-        <meta property="og:url" content={`https://dcutime.shop/post/${id}`} />
+        <meta property="og:url" content={`http://www.dcutime.shop/post/${id}`} />
       </Head>
       <PostCard post={singlePost} />
     </AppLayout>

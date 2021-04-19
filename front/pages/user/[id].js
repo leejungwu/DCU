@@ -48,7 +48,7 @@ const User = () => {
           <meta name="description" content={`${userInfo.nickname}님의 게시글`} />
           <meta property="og:title" content={`${userInfo.nickname}님의 게시글`} />
           <meta property="og:description" content={`${userInfo.nickname}님의 게시글`} />
-          <meta property="og:url" content={`https://dcutime.shop/user/${id}`} />
+          <meta property="og:url" content={`http://www.dcutime.shop/user/${id}`} />
         </Head>
       )}
       {userInfo
