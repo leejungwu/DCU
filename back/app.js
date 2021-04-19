@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(hpp());
   app.use(helmet());
   app.use(cors({
-    origin: 'http://dcutime.shop',
+    origin: 'http://www.dcutime.shop',
     credentials: true,
   }));
 } else {
