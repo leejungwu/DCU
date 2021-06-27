@@ -26,13 +26,13 @@
 <br />
 <br />
 
-### 메인
+## 메인
 ![로그인 메인](https://user-images.githubusercontent.com/31175133/123536652-af24e980-d766-11eb-9920-a4d6ca7c055f.PNG)
 
 
-### 회원 가입
+## 회원 가입
 ![회원가입](https://user-images.githubusercontent.com/31175133/123536751-26f31400-d767-11eb-957d-397b7b9db0eb.PNG)
 
 
-### 프로필
+## 프로필
 ![프로필](https://user-images.githubusercontent.com/31175133/123536759-35d9c680-d767-11eb-8d5e-1addeebfe39f.PNG)
